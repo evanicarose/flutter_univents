@@ -15,151 +15,226 @@ class _IndexScreenState extends State<IndexScreen> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              Color.fromARGB(255, 141, 125, 131),
-              Color.fromARGB(255, 186, 170, 170),
-            ],
-          ),
+          color: Colors.white,
         ),
         alignment: Alignment.center,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Card(
-            elevation: 10,
-            color: Colors.white,
-            child: SizedBox(
-              height: 750,
-              width: 600,
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+          child: SizedBox(
+            height: 850,
+            width: 600,
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.asset(
+                        "assets/images/logo.png",
+                        width: 90,
+                        height: 90,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                ),
+              
+                
+                Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    "UniVents",
+                    style: 
+                    TextStyle(color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,),
+                    
+                  ),
+                ),
+          
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Text(
+                        "Sign In",
+                        style: 
+                        TextStyle(color: Colors.black,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,),
+                        
+                      ),
+                    ),
+                  ],
+                ),                  
+          
+                inputField("abc@email.com", icon: Icons.email),
+                const SizedBox(height: 10),
+                inputField("Password", isPassword: true, icon: Icons.lock),
+          
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.asset(
-                          "assets/images/logo.png",
-                          width: 90,
-                          height: 90,
-                          fit: BoxFit.cover,
+                      Row(
+                        children: [
+                          Switch(
+                            value: _rememberMe,
+                            overlayColor: WidgetStateProperty.resolveWith<Color?>(
+                              (states) {
+                                if (states.contains(WidgetState.selected)) {
+                                  return const Color.fromARGB(255, 40, 57, 214).withOpacity(0.5);
+                                } else if (states.contains(WidgetState.disabled)) {
+                                  return const Color.fromARGB(255, 156, 151, 151);
+                                }
+                                return null;
+                              },
+                            ),
+                            trackColor: WidgetStateProperty.resolveWith<Color?>(
+                              (states) {
+                                if (states.contains(WidgetState.selected)) {
+                                  return const Color.fromARGB(255, 40, 57, 214);
+                                }
+                                return const Color.fromARGB(255, 176, 172, 172);
+                              },
+                            ),
+                            thumbColor: const WidgetStatePropertyAll<Color>(Colors.white),
+                            onChanged: (bool value) {
+                              setState(() {
+                                _rememberMe = value;
+                              });
+                            },
+                          ),
+
+                           Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              "Remember me",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Forgot password?",
+                          style: TextStyle(color: Colors.black),
                         ),
                       ),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Log in to #6 Juarbal",
-                      style: TextStyle(color: Colors.black),
-                    ),
+                ),
+                loginButton(),
+                const Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    "OR",
+                    style: TextStyle(color: Color.fromARGB(255, 148, 145, 145), fontSize: 18),
                   ),
-                  socialLoginButton(Icons.email, "Continue with Google"),
-                  socialLoginButton(Icons.facebook, "Continue with Facebook"),
-                  socialLoginButton(Icons.apple, "Continue with Apple"),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Divider(
-                      color: Color.fromARGB(255, 172, 156, 156),
-                      thickness: 0.5,
-                      indent: 50,
-                      endIndent: 50,
-                    ),
-                  ),
-                  inputField("Email or username", "Email or Username"),
-                  const SizedBox(height: 10),
-                  inputField("Password", "Password", isPassword: true),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Switch(
-                          value: _rememberMe,
-                          onChanged: (bool value) {
-                            setState(() {
-                              _rememberMe = value;
-                            });
-                          },
-                          inactiveTrackColor: const Color.fromARGB(255, 197, 192, 192),
-                          activeColor: const Color.fromARGB(255, 137, 104, 117), // Green color when active
+                ),
+          
+                socialLoginButton('assets/images/google-logo.png', "Log in with Google"),
+                socialLoginButton('assets/images/facebook-logo.png', "Log in with Facebook"),
+          
+                Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(2.0),
+                        child: Text(
+                          "Don't have an account?",
+                          style: TextStyle(color: Colors.black),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            "Remember me",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  loginButton(),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Forgot your password?",
-                      style: TextStyle(
-                        color: Colors.black,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.black,
                       ),
-                    ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Sign up",
+                          style: TextStyle(color: Color.fromARGB(255, 2, 74, 134)),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+Widget socialLoginButton(String assetPath, String text) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: SizedBox(
+      width: 300,
+      height: 50,
+      child: OutlinedButton(
+        onPressed: () {},
+        style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.white,
+          side: const BorderSide(color: Colors.transparent), // No border
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+          elevation: 2,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              assetPath,
+              height: 30,
+              width: 30,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              text,
+              style: const TextStyle(
+                color: Color(0xFF1F1F1F),
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
               ),
             ),
-          ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget socialLoginButton(IconData icon, String text) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        width: 300,
-        child: OutlinedButton(
-          onPressed: () {},
-          style: OutlinedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-            side: const BorderSide(color: Color.fromARGB(255, 0, 0, 0), width: 2),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 12),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: Colors.black),
-              const SizedBox(width: 10),
-              Text(text, style: const TextStyle(color: Colors.black)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
-  Widget inputField(String label, String hint, {bool isPassword = false}) {
+  Widget inputField(String hint, {bool isPassword = false, IconData? icon}) {
     return SizedBox(
       width: 350,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: const TextStyle(color: Colors.black)),
-          const SizedBox(height: 10),
           TextFormField(
             obscureText: isPassword,
             style: const TextStyle(color: Colors.black),
             decoration: InputDecoration(
               labelText: hint,
-              border: const OutlineInputBorder(),
-              labelStyle: const TextStyle(color: Colors.black),
+              prefixIcon: icon != null ? Icon(icon, color: Colors.grey) : null,
+              border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12), // Rounded corners
+              borderSide: const BorderSide(color: Color.fromARGB(255, 178, 176, 176)),
+            ),
+            labelStyle: const TextStyle(color: Colors.black),
+            filled: true,
+            fillColor: Colors.white,
+            hintStyle: const TextStyle(color: Colors.grey),
+            contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
             ),
           ),
         ],
@@ -167,31 +242,57 @@ class _IndexScreenState extends State<IndexScreen> {
     );
   }
 
-  Widget loginButton() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        width: 250,
-        height: 50,
-        child: OutlinedButton(
-          onPressed: () {},
-          style: OutlinedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 177, 161, 167),
-            side: const BorderSide(
-                color: Color.fromARGB(255, 0, 0, 0), width: 2),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+Widget loginButton() {
+  return Padding(
+    padding: const EdgeInsets.all(10.0),
+    child: SizedBox(
+      width: 300,
+      height: 60,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF1D2F96), 
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          elevation: 4,
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            const Center(
+              child: Text(
+                "SIGN IN",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                  fontSize: 18,
+                ),
+              ),
             ),
-            padding: const EdgeInsets.symmetric(vertical: 12),
-          ),
-          child: const Text(
-            "Log In",
-            style: TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
-                fontWeight: FontWeight.bold),
-          ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                // margin: const EdgeInsets.only(right: 2),
+                decoration: const BoxDecoration(
+                  color: Color(0xFF4D5DFB),
+                  shape: BoxShape.circle,
+                ),
+                padding: const EdgeInsets.all(8),
+                child: const Icon(
+                  Icons.arrow_forward,
+                  color: Colors.white,
+                  size: 18,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
+
 }
