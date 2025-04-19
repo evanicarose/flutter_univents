@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_univents/forgot-password.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key});
@@ -83,14 +84,14 @@ class _IndexScreenState extends State<IndexScreen> {
                       Row(
                         children: [
                           Switch.adaptive(
-                            applyCupertinoTheme: false, // forces Material style even on iOS
+                            applyCupertinoTheme: false, 
                             value: _rememberMe,
                             onChanged: (bool value) {
                               setState(() {
                                 _rememberMe = value;
                               });
                             },
-                            activeColor: const Color.fromARGB(255, 6, 83, 178), // thumb when on
+                            activeColor: const Color.fromARGB(255, 6, 83, 178), 
                             inactiveThumbColor: const Color.fromARGB(255, 255, 255, 255), // thumb when off
                             inactiveTrackColor: const Color.fromARGB(255, 132, 127, 127), // track when off
                           ),
@@ -104,13 +105,25 @@ class _IndexScreenState extends State<IndexScreen> {
                         ],
                       ),
                 
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Forgot password?",
-                          style: TextStyle(color: Colors.black),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ForgotPassword()),
+                            );
+                          },
+                          child: const Text(
+                            "Forgot password?",
+                            style: TextStyle(
+                              color: Colors.black,
+                              
+                            ),
+                          ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -166,7 +179,7 @@ Widget socialLoginButton(String assetPath, String text) {
         onPressed: () {},
         style: OutlinedButton.styleFrom(
           backgroundColor: Colors.white,
-          side: const BorderSide(color: Colors.transparent), // No border
+          side: const BorderSide(color: Colors.transparent),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -211,7 +224,7 @@ Widget socialLoginButton(String assetPath, String text) {
               labelText: hint,
               prefixIcon: icon != null ? Icon(icon, color: Colors.grey) : null,
               border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12), // Rounded corners
+              borderRadius: BorderRadius.circular(12), 
               borderSide: const BorderSide(color: Color.fromARGB(255, 178, 176, 176)),
             ),
             labelStyle: const TextStyle(color: Colors.black),
