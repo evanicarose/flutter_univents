@@ -82,34 +82,18 @@ class _IndexScreenState extends State<IndexScreen> {
                     children: [
                       Row(
                         children: [
-                          Switch(
+                          Switch.adaptive(
+                            applyCupertinoTheme: false, // forces Material style even on iOS
                             value: _rememberMe,
-                            overlayColor: WidgetStateProperty.resolveWith<Color?>(
-                              (states) {
-                                if (states.contains(WidgetState.selected)) {
-                                  return const Color.fromARGB(255, 40, 57, 214).withOpacity(0.5);
-                                } else if (states.contains(WidgetState.disabled)) {
-                                  return const Color.fromARGB(255, 156, 151, 151);
-                                }
-                                return null;
-                              },
-                            ),
-                            trackColor: WidgetStateProperty.resolveWith<Color?>(
-                              (states) {
-                                if (states.contains(WidgetState.selected)) {
-                                  return const Color.fromARGB(255, 40, 57, 214);
-                                }
-                                return const Color.fromARGB(255, 176, 172, 172);
-                              },
-                            ),
-                            thumbColor: const WidgetStatePropertyAll<Color>(Colors.white),
                             onChanged: (bool value) {
                               setState(() {
                                 _rememberMe = value;
                               });
                             },
+                            activeColor: const Color.fromARGB(255, 6, 83, 178), // thumb when on
+                            inactiveThumbColor: const Color.fromARGB(255, 255, 255, 255), // thumb when off
+                            inactiveTrackColor: const Color.fromARGB(255, 132, 127, 127), // track when off
                           ),
-
                            Padding(
                             padding: EdgeInsets.all(20.0),
                             child: Text(
